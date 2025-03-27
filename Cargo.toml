@@ -22,6 +22,7 @@ rand = "0.9"
 roaring = "0.10"
 ucd-trie = { version = "0.1", default-features = false }
 unicode-xid = "0.2.6"
+unicode-id-zig.path = "./unicode-id-zig"
 
 [[bench]]
 name = "xid"

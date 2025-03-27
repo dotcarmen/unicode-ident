@@ -102,6 +102,14 @@ fn bench(c: &mut Criterion, group_name: &str, string: String) {
             }
         });
     });
+    group.bench_function("unicode-id-zig", |b| {
+        b.iter(|| {
+            for ch in string.chars() {
+                black_box(unicode_id_zig::UnicodeCodepoint::is_xid_start(ch));
+                black_box(unicode_id_zig::UnicodeCodepoint::is_xid_continue(ch));
+            }
+        });
+    });
     group.finish();
 }
 
