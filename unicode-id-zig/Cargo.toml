@@ -1,0 +1,11 @@
+[package]
+name = "unicode-id-zig"
+version = "0.0.1"
+publish = false
+include = ["source/*"]
+links = "unicode-id"
+edition = "2018"
+build = true
+
+[build-dependencies]
+eyre = "0.6.12"

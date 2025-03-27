@@ -1,0 +1,4 @@
+[submodule "unicode-id/source"]
+	path = unicode-id/source
+	url = https://codeberg.org/dotcarmen/unicode-id
+	branch = export-fn-continue
