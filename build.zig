@@ -126,17 +126,17 @@ const CargoBuild = struct {
             std.log.err("error during cargo build step: {}", .{err});
         }
 
-        var argv = std.ArrayList([]const u8).init(b.allocator);
+        var argv: std.ArrayList([]const u8) = .empty;
         const manifest_path = cb.manifest_path.getPath3(b, step);
-        try argv.appendSlice(&.{
+        try argv.appendSlice(b.allocator, &.{
             "cargo",            "build",
             "--manifest-path",  manifest_path.toString(b.allocator) catch @panic("OOM"),
             "--target",         cb.target,
             "--message-format", "json",
         });
-        if (cb.release) try argv.append("--release");
+        if (cb.release) try argv.append(b.allocator, "--release");
         if (cb.package) |package|
-            try argv.appendSlice(&.{ "--package", package });
+            try argv.appendSlice(b.allocator, &.{ "--package", package });
 
         const progress_node = options.progress_node.start("cargo build", 1);
         defer progress_node.end();
