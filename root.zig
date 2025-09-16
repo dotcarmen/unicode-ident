@@ -22,22 +22,30 @@ pub const utf8 = struct {
 };
 
 test ascii {
-    try testing.expect(ascii.is_xid_continue('a'));
     try testing.expect(ascii.is_xid_start('a'));
+    try testing.expect(ascii.is_xid_continue('a'));
 
     try testing.expect(!ascii.is_xid_start('_'));
+    try testing.expect(ascii.is_xid_continue('_'));
     try testing.expect(!ascii.is_xid_start('0'));
+    try testing.expect(ascii.is_xid_continue('0'));
     try testing.expect(!ascii.is_xid_start(' '));
+    try testing.expect(!ascii.is_xid_continue(' '));
 }
 
 test utf8 {
-    try testing.expect(utf8.is_xid_continue('a'));
     try testing.expect(utf8.is_xid_start('a'));
+    try testing.expect(utf8.is_xid_continue('a'));
 
     try testing.expect(!utf8.is_xid_start('_'));
+    try testing.expect(utf8.is_xid_continue('_'));
     try testing.expect(!utf8.is_xid_start('0'));
+    try testing.expect(utf8.is_xid_continue('0'));
     try testing.expect(!utf8.is_xid_start(' '));
+    try testing.expect(!utf8.is_xid_continue(' '));
 
+    try testing.expect(!utf8.is_xid_start('😂'));
     try testing.expect(!utf8.is_xid_continue('😂'));
+    try testing.expect(utf8.is_xid_start('ñ'));
     try testing.expect(utf8.is_xid_continue('ñ'));
 }
