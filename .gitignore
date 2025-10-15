@@ -2,3 +2,5 @@
 /Cargo.lock
 /UCD/
 /UCD.zip
+/.zig-cache/
+/zig-out/
