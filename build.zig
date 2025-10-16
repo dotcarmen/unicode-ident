@@ -9,13 +9,6 @@ pub fn build(b: *std.Build) !void {
         .preferred_optimize_mode = .ReleaseSafe,
     });
 
-    const translate_header = b.addTranslateC(.{
-        .root_source_file = b.path("c-api/include/unicode_ident.h"),
-        .optimize = optimize,
-        .target = target,
-    });
-    const translated = translate_header.addModule("unicode-ident-c");
-
     const cargo_build: *CargoBuild = .create(b, .{
         .manifest_path = b.path("Cargo.toml"),
         .release = optimize != .Debug,
@@ -33,6 +26,14 @@ pub fn build(b: *std.Build) !void {
         }),
     );
     b.addNamedLazyPath("lib", lib);
+
+    const translate_header = b.addTranslateC(.{
+        .root_source_file = b.path("c-api/include/unicode_ident.h"),
+        .optimize = optimize,
+        .target = target,
+    });
+    const translated = translate_header.addModule("unicode-ident-c");
+    translated.addObjectFile(lib);
 
     const binding = b.addModule("unicode-ident", .{
         .root_source_file = b.path("root.zig"),
