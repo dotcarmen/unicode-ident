@@ -18,14 +18,13 @@ pub fn build(b: *std.Build) !void {
     const target_dir = cargo_build.getOutput();
     b.addNamedLazyPath("target", target_dir);
 
-    const lib = try target_dir.join(
-        b.allocator,
-        b.fmt("{s}unicode_ident{s}", .{
-            target.result.libPrefix(),
-            target.result.staticLibSuffix(),
-        }),
-    );
-    b.addNamedLazyPath("lib", lib);
+    const lib_name = b.fmt("{s}unicode_ident{s}", .{
+        target.result.libPrefix(),
+        target.result.staticLibSuffix(),
+    });
+    const lib = try target_dir.join(b.allocator, lib_name);
+    const install_lib = b.addInstallFile(lib, b.fmt("lib/{s}", .{lib_name}));
+    b.getInstallStep().dependOn(&install_lib.step);
 
     const translate_header = b.addTranslateC(.{
         .root_source_file = b.path("c-api/include/unicode_ident.h"),
