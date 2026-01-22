@@ -1,0 +1,20 @@
+.{
+    .name = .unicode_ident,
+    .version = "0.0.1",
+    .minimum_zig_version = "0.16.0-dev.2223+4f16e80ce",
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "Cargo.toml",
+        "LICENSE-APACHE",
+        "LICENSE-MIT",
+        "LICENSE-UNICODE",
+        "README.md",
+        "benches",
+        "c-api",
+        "diagram",
+        "generate",
+        "src",
+    },
+    .fingerprint = 0x49c49736f40db23a,
+}
